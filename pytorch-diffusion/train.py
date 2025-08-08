@@ -14,7 +14,7 @@ dataset_choice = "Cifar-10"
 batch_size=256
 device = 'cuda'
 
-# scaler = amp.GradScaler()
+scaler = amp.GradScaler()
 
 train_loader = get_dataloader(dataset_name=dataset_choice, batch_size=batch_size)
 validation_loader = get_dataloader(dataset_name=dataset_choice, batch_size=batch_size, split='validation')
@@ -71,9 +71,9 @@ for epoch in range(epoch_start, num_epochs):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        # scaler.scale(loss).backward()
-        # scaler.step(optimizer)  
-        # scaler.update()
+        scaler.scale(loss).backward()
+        scaler.step(optimizer)  
+        scaler.update()
 
         t2 = time.time()
         dt = (t2 - t1) * 1000
