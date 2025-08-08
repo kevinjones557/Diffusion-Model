@@ -3,3 +3,4 @@
 *.gif
 data/
 __pycache__/
+*/train.ipynb
